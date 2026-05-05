@@ -1,6 +1,6 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "main": "dist/js/jadwal.umd.js",
   "module": "dist/js/jadwal.es.js",
@@ -9,9 +9,8 @@
     ".": {
       "import": "./dist/js/jadwal.es.js",
       "default": "./dist/js/jadwal.umd.js"
-    } ,
+    },
     "./style.css": "./dist/css/jadwal.css"
-
   },
   "unpkg": "dist/js/jadwal.umd.js",
   "jsdelivr": "dist/js/jadwal.umd.js",
