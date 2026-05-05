@@ -2,7 +2,7 @@ export class Pagination {
   constructor(options = {}) {
     this.enabled = options.enabled || false;
     this.pageSize = options.pageSize || 10;
-    this.currentPage = 1;
+    this.currentPage = options.currentPage || 1;
     this.totalItems = 0;
   }
 

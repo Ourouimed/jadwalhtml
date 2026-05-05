@@ -1,6 +1,7 @@
 import { DataManager } from "../modules/data.js";
 import { Renderer } from "../modules/renderer.js";
 import { Pagination } from "../modules/pagination.js";
+import ThemeManager from "../modules/theme.js";
 
 class Jadwal {
   constructor(selector, options = {}) {
@@ -9,6 +10,8 @@ class Jadwal {
     this.data = new DataManager(options.data);
     this.renderer = new Renderer();
     this.pagination = new Pagination(options.pagination || {});
+    this.theme = new ThemeManager(options.theme || {}).getTheme()
+
 
     this.fields = options.fields || [];
     this.customFields = options.customFields || {};
@@ -20,7 +23,8 @@ class Jadwal {
          ...options.sortState
       }
 
-    console.log(this.sortState)
+    
+
     this.refresh();
   }
 
@@ -37,6 +41,7 @@ class Jadwal {
   this.fields,
   this.customFields,
   {
+    enabled : this.pagination.enabled ,
     current: this.pagination.currentPage,
     totalPages: this.pagination.totalPages(),
     total: allData.length,
@@ -61,6 +66,8 @@ class Jadwal {
       if (this.sortState.enabled){
         const key = label.toLowerCase();
 
+        console.log(key)
+
         if (this.sortState.key === key) {
           this.sortState.order =
             this.sortState.order === "asc" ? "desc" : "asc";
@@ -75,8 +82,10 @@ class Jadwal {
       
     } ,
 
-    sortState : this.sortState
-  }
+    
+  } ,
+  this.sortState ,
+  this.theme
 );
 }
 

@@ -1,60 +1,47 @@
+.jadwal-container {
+  background-color: var(--background); 
+  color: var(--text-color);
+  
+}
 .jadwal-table {
+  border-collapse: collapse;
+  font-size: 16px;
+  min-width: 600px;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* Header */
-.jadwal-table thead {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: #ffffff;
+
+/* scrolls */
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
-.jadwal-table thead th {
-  padding: 14px 16px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+.jadwal-table th,
+.jadwal-table td {
+  padding: var(--cell-padding-y) var(--cell-padding-x);
+  line-height: var(--line-height);
+  font-size: var(--font-size);
+  text-align: start;
 }
 
-/* Body */
-.jadwal-table tbody td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #e5e7eb;
-  font-size: 14px;
-  color: #374151;
+.jadwal-table.border-row tr {
+  border-bottom: 1px solid var(--border);
+}
+.jadwal-table.border-cell td , .jadwal-table.border-cell th {
+  border: 1px solid var(--border);
 }
 
-/* Row hover effect */
-.jadwal-table tbody tr {
-  transition: background-color 0.2s ease;
+/* Hover */
+.jadwal-table tbody > tr {
+  transition: ease .4s;
 }
 
-.jadwal-table tbody tr:hover {
-  background-color: #f3f4f6;
+.jadwal-table.hoverable tbody > tr:hover {
+  background: var(--border);
 }
 
-/* Zebra stripes */
-.jadwal-table tbody tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-/* Last row border fix */
-.jadwal-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Optional: rounded corners fix */
-.jadwal-table thead th:first-child {
-  border-top-left-radius: 12px;
-}
-
-.jadwal-table thead th:last-child {
-  border-top-right-radius: 12px;
+/* Striped */
+.jadwal-table.jadwal-striped tbody > tr:nth-child(odd) {
+  background: var(--border);
 }

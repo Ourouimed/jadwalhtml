@@ -1,74 +1,63 @@
-:root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --border: #e2e8f0;
-  --muted: #64748b;
-  --bg: #ffffff;
-  --bg-soft: #f8fafc;
-  --radius: 8px;
-}
-
-/* Container */
 .pagination-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  background: var(--bg);
-  border-radius: 12px;
-  border: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.pagination-info {
-  color: var(--muted);
-  font-size: 0.875rem;
-}
 
-/* Controls */
 .pagination {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: wrap;
 }
 
 .pagination-pages {
-  display: flex;
-  gap: 4px;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    flex-wrap: wrap;
 }
 
-/* Buttons */
-.pagination button {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  color: #475569;
-  padding: 8px 12px;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
+
+.pagination > button {
+    padding: 4px 15px;
+    height: 35px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-color);
+
 }
 
-.pagination button:hover:not(:disabled) {
-  border-color: #94a3b8;
-  background: var(--bg-soft);
+.pagination-pages > button {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 35px;
+    height: 35px; 
+    cursor: pointer;
+    color: var(--text-color);
 }
 
-.pagination button:disabled {
-  opacity: 0.5;
+.pagination button:not(:disabled):hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    transition: all .4s;
+}
+
+.pagination > button:disabled {
+  opacity: .4;
   cursor: not-allowed;
-  background: #f1f5f9;
 }
 
-/* Active page */
-.pagination-pages button.active {
-  background-color: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-/* Dots */
-.pagination span {
-  color: #94a3b8;
-  padding: 0 4px;
+.pagination-pages > button.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }

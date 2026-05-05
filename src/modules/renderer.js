@@ -1,28 +1,71 @@
 import { ChevronUp, ChevronDown, ChevronsUpDown, createElement } from "lucide";
 export class Renderer {
-  renderTable(container, data, fields, customFields, pagination = null) {
+  renderTable(container, data, fields, customFields, pagination = null , sortState , theme) {
     container.innerHTML = "";
+    container.className = "jadwal-container"
 
+
+
+    if(theme.mode === 'dark') container.classList.add('dark')
+    else if(theme.mode === 'light') container.classList.add('light')
+    else container.classList.add("system")
+
+
+    // create table wrapper
+    const table_wrapper = document.createElement("div")
+    table_wrapper.className = "table-wrapper"
+
+
+    // create table
     const table = document.createElement("table");
     table.className = "jadwal-table";
+
+
+    // SET CONFIG STYLES 
+    if (theme.striped) table.classList.add("jadwal-striped")
+    if (theme.width === 'full') {
+        container.style.width = "100%"
+    }
+    else if (!isNaN(parseInt(theme.width))){
+      container.style.width = theme.width + 'px'
+    }
+    else container.style.width = "fit-content"
+
+    if (theme.hover){
+      table.classList.add('hoverable')
+    }
+
+    if (!isNaN(parseInt(theme.maxHeight))){
+      table_wrapper.style.maxHeight = theme.maxHeight + "px"
+    }
+
+    if (['cell' , 'none' , 'row'].includes(theme?.border?.mode)){
+      table.classList.add(`border-${theme.border?.mode}`)
+    }
+
+    if (['compact' , 'spacious'].includes(theme.density)){
+      table.classList.add(`jadwal-${theme.density}`)
+    }
+
+
     const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
 
     const tr = document.createElement("tr");
 
 
-    
+    // create thead cells 
     fields.forEach(f => {
       const th = document.createElement("th");
 
       const key = f.label.toLowerCase();
-      const isSortable = f.label !== "Actions" && pagination?.onSort;
 
-      if (isSortable) {
+
+      if (sortState?.enabled) {
         th.style.cursor = "pointer";
 
-        const sortKey = pagination.sortState?.key;
-        const sortOrder = pagination.sortState?.order;
+        const sortKey = sortState?.key;
+        const sortOrder = sortState?.order;
 
         const iconWrapper = document.createElement("span");
         iconWrapper.style.display = "inline-flex";
@@ -94,11 +137,11 @@ export class Renderer {
     table.appendChild(tbody);
 
     
+    table_wrapper.appendChild(table)
+    container.appendChild(table_wrapper);
 
-    container.appendChild(table);
 
-
-    if (pagination) {
+    if (pagination?.enabled) {
   const wrapper = document.createElement("div");
   wrapper.className = "pagination-container";
 
