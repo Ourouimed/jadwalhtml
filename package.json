@@ -1,6 +1,6 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "dist/jadwal.umd.js",
   "module": "dist/jadwal.es.js",
