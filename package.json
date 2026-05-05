@@ -1,6 +1,6 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "main": "dist/js/jadwal.umd.js",
   "module": "dist/js/jadwal.es.js",
@@ -21,6 +21,11 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ourouimed/jadwalhtml.git"
+  },
+  "homepage": "https://github.com/ourouimed/jadwalhtml.git#readme",
   "devDependencies": {
     "vite": "^8.0.10"
   },
