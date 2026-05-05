@@ -1,18 +1,18 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "main": "dist/jadwal.umd.js",
   "module": "dist/jadwal.es.js",
   "exports": {
     ".": {
-      "import": "./dist/jadwal.es.js",
-      "default": "./dist/jadwal.umd.js"
+      "import": "./dist/js/jadwal.es.js",
+      "default": "./dist/js/jadwal.umd.js"
     }
   },
   "unpkg": "dist/jadwal.umd.js",
   "jsdelivr": "dist/jadwal.umd.js",
-  "style": "./dist/jadwal.css",
+  "style": "./dist/css/jadwal.css",
   "scripts": {
     "dev": "vite",
     "build:watch": "vite build --watch",
