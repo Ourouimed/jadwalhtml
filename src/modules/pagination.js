@@ -20,10 +20,11 @@ export class Pagination {
   }
 
   paginate(data) {
+  if (this.currentPage > this.totalPages()) this.currentPage = 1
   if (!this.enabled) {
     return data.map((item, index) => ({
       ...item,
-      _index: index + 1
+      _index: index
     }));
   }
 
@@ -32,7 +33,7 @@ export class Pagination {
 
   return data.slice(start, end).map((item, index) => ({
     ...item,
-    _index: start + index + 1 // 👈 real index
+    _index: start + index // 👈 real index
   }));
 }
 

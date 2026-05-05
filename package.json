@@ -1,9 +1,10 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
-  "main": "dist/jadwal.umd.js",
-  "module": "dist/jadwal.es.js",
+  "main": "dist/js/jadwal.umd.js",
+  "module": "dist/js/jadwal.es.js",
+  "license": "MIT",
   "exports": {
     ".": {
       "import": "./dist/js/jadwal.es.js",
@@ -12,8 +13,8 @@
     "./style.css": "./dist/css/jadwal.css"
 
   },
-  "unpkg": "dist/jadwal.umd.js",
-  "jsdelivr": "dist/jadwal.umd.js",
+  "unpkg": "dist/js/jadwal.umd.js",
+  "jsdelivr": "dist/js/jadwal.umd.js",
   "style": "./dist/css/jadwal.css",
   "scripts": {
     "dev": "vite",

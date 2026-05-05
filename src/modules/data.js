@@ -57,6 +57,7 @@ export class DataManager {
   // filter TABLE data by callback
   filter(callback){
     this.rawData = this.rawData.filter(callback);
+    return this.rawData
   }
 
   // update row by index

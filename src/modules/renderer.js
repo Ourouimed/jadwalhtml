@@ -58,10 +58,10 @@ export class Renderer {
     fields.forEach(f => {
       const th = document.createElement("th");
 
-      const key = f.label.toLowerCase();
+      const key = f.label.toLowerCase();    
 
-
-      if (sortState?.enabled) {
+      const isSortable = key !== "actions" && key.trim() !== "" && pagination?.onSort
+      if (sortState?.enabled && isSortable) {
         th.style.cursor = "pointer";
 
         const sortKey = sortState?.key;

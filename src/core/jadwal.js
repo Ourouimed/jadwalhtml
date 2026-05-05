@@ -66,8 +66,6 @@ class Jadwal {
       if (this.sortState.enabled){
         const key = label.toLowerCase();
 
-        console.log(key)
-
         if (this.sortState.key === key) {
           this.sortState.order =
             this.sortState.order === "asc" ? "desc" : "asc";
@@ -136,8 +134,9 @@ class Jadwal {
   } 
 
   filter(callback){
-    this.data.filter(callback);
+    const filtredData = this.data.filter(callback);
     this.refresh();
+    return filtredData
   }
 
 
