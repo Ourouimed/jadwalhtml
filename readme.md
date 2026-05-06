@@ -3,6 +3,39 @@
 ![downloads](https://img.shields.io/npm/dm/jadwalhtml)
 ![license](https://img.shields.io/npm/l/jadwalhtml)
 
+## Table of contetnt
+- [JadwalHTML 📊](#jadwalhtml-)
+  - [Table of contetnt](#table-of-contetnt)
+  - [🚀 Features](#-features)
+  - [📦 Installation](#-installation)
+    - [🚀 1. ES Module Import (Recommended)](#-1-es-module-import-recommended)
+      - [Usage](#usage)
+    - [🌐 2. CDN Import (ESM - Modern)](#-2-cdn-import-esm---modern)
+    - [⚡ 3. CDN Script (Classic / Global - UMD)](#-3-cdn-script-classic--global---umd)
+  - [🚀 Usage](#-usage)
+    - [📊 Basic Table](#-basic-table)
+    - [custom fields](#custom-fields)
+    - [📄 Pagination](#-pagination)
+    - [🔃 Sorting](#-sorting)
+    - [🎨 Theme Configuration](#-theme-configuration)
+  - [⚛️ React Integration (v0.1.7)](#️-react-integration-v017)
+    - [⚠️ Important Note on React Support](#️-important-note-on-react-support)
+    - [1. Hook Setup](#1-hook-setup)
+    - [2. Data Management Strategies](#2-data-management-strategies)
+      - [🔵 Strategy A: React State Management (Recommended)](#-strategy-a-react-state-management-recommended)
+      - [🔴 Strategy B: Imperative Instance Management](#-strategy-b-imperative-instance-management)
+    - [⛔ CRITICAL WARNING: Do Not Mix Methods](#-critical-warning-do-not-mix-methods)
+  - [📊 Data API (Getters \& Setters)](#-data-api-getters--setters)
+      - [📥 Get Data](#-get-data)
+      - [📤 Set Data](#-set-data)
+      - [➕ Add Data](#-add-data)
+      - [✏️ Update Data](#️-update-data)
+      - [❌ Delete Data](#-delete-data)
+      - [🔍 Filter Data](#-filter-data)
+      - [🔃 Sort Data](#-sort-data)
+  - [📄 License](#-license)
+  - [🤝 Contributing](#-contributing)
+  - [⭐ Show your support](#-show-your-support)
 
 A lightweight and customizable JavaScript library for creating dynamic HTML tables with sorting, custom fields, theming, and more.
 
@@ -73,7 +106,7 @@ Use this for simple HTML projects (no module system).
 </script>
 ```
 
-## 🚀 Usage
+## 🚀 Usage 
 Once **JadwalHTML** is imported, you can start creating dynamic tables immediately.
 
 ### 📊 Basic Table
@@ -160,7 +193,115 @@ const jadwal = new Jadwal("#jadwal", {
 });
 ```
 
-### 📊 Data API (Getters & Setters)
+## ⚛️ React Integration (v0.1.7)
+
+Integrating **JadwalHTML** into a React project requires a "Bridge Pattern" because the library operates directly on the DOM, bypassing React's Virtual DOM.
+
+### ⚠️ Important Note on React Support
+**JadwalHTML** is currently a Vanilla JavaScript library. It does not natively support:
+*   JSX rendering inside cells.
+*   React Context or Hooks inside `customFields`.
+*   Automatic reconciliation with React State.
+
+---
+
+### 1. Hook Setup
+To manage the lifecycle of the table, use the `useJadwal` hook. You can generate it automatically via the CLI or create it manually.
+
+**Command Line Setup:**
+```bash
+npx jadwal-react 
+```
+
+**Manual Setup (`src/hooks/useJadwal.js`):**
+```js
+import { useEffect, useRef } from "react";
+import {Jadwal} from "jadwalhtml";
+
+export function useJadwal(options) {
+  const ref = useRef(null);
+  const instance = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    instance.current = new Jadwal(ref.current, options);
+
+    return () => instance.current?.destroy?.();
+  }, []);
+
+  return { ref, instance };
+}
+```
+
+
+### 2. Data Management Strategies
+There are two ways to manage data in React. Choose only one per component. Mixing them will cause synchronization bugs.
+#### 🔵 Strategy A: React State Management (Recommended)
+This is the standard approach. React State is the single source of truth. The table is a "subscriber" to that state.
+```js
+import { useState, useEffect } from "react";
+import { useJadwal } from "./hooks/useJadwal";
+
+const UserTable = () => {
+  const [data, setData] = useState([{ name: "Ahmed", age: 25 }]);
+  const { ref, instance } = useJadwal(
+    {
+        fields: [{ label: "name" }, { label: "age" }],
+        data: data
+    }
+  );
+
+  useEffect(() => {
+    if (instance.current) {
+      instance.current.setData(data);
+    }
+  }, [data]);
+
+  const handleAdd = () => { 
+    setData(prev => [...prev, { name: "New User", age: 30 }]);
+  };
+
+  return (
+    <div>
+      <button onClick={handleAdd}>Add User</button>
+      <div ref={ref} />
+    </div>
+  );
+};
+```
+
+####  🔴 Strategy B: Imperative Instance Management
+Use this if you want to bypass React's render cycle for performance or if you are managing data entirely inside the library.
+```js
+import { useState, useEffect } from "react";
+import { useJadwal } from "./hooks/useJadwal";
+
+const UserTable = () => {
+  const { ref, instance } = useJadwal(
+    {
+        fields: [{ label: "name" }, { label: "age" }],
+        data: [{ name: "Ahmed", age: 25 }]
+    }
+  );
+
+  const handleAdd = () => {
+    // Uses Jadwal's internal DataManager directly.
+    instance.addRow({ name: "New User", age: 30 });
+  };
+
+  return (
+    <div>
+      <button onClick={handleAdd}>Add User</button>
+      <div ref={ref} />
+    </div>
+  );
+};
+```
+### ⛔ CRITICAL WARNING: Do Not Mix Methods
+NEVER use built-in methods (addRow, deleteRow, updateOne...) if you are also using a React useState array to sync data via setData.
+
+## 📊 Data API (Getters & Setters)
 
 JadwalHTML provides methods to access and manipulate table data dynamically.
 
@@ -235,8 +376,6 @@ jadwal.filter(row => row.age > 20);
 jadwal.sort("name", "asc"); // or "desc"
 ```
 
-
----
 
 ## 📄 License
 

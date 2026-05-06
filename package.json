@@ -1,6 +1,6 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "type": "module",
   "main": "dist/js/jadwal.umd.js",
   "module": "dist/js/jadwal.es.js",
@@ -8,7 +8,7 @@
   "exports": {
     ".": {
       "import": "./dist/js/jadwal.es.js",
-      "default": "./dist/js/jadwal.umd.js"
+      "require": "./dist/js/jadwal.umd.js"
     },
     "./style.css": "./dist/css/jadwal.css"
   },
@@ -17,9 +17,11 @@
   "style": "./dist/css/jadwal.css",
   "scripts": {
     "dev": "vite",
-    "build:watch": "vite build --watch",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:watch:core": "vite build --watch"
+  },
+  "bin": {
+    "jadwal-react": "./src/scripts/create-jadwal-react.js"
   },
   "repository": {
     "type": "git",
