@@ -1,6 +1,6 @@
 {
   "name": "jadwalhtml",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "main": "dist/js/jadwal.umd.js",
   "module": "dist/js/jadwal.es.js",
@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:watch:core": "vite build --watch"
+    "build:watch": "vite build --watch"
   },
   "bin": {
     "jadwal-react": "./src/scripts/create-jadwal-react.js"

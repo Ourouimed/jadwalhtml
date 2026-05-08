@@ -29,7 +29,10 @@ export class Renderer {
     else if (!isNaN(parseInt(theme.width))){
       container.style.width = theme.width + 'px'
     }
-    else container.style.width = "fit-content"
+    else {
+        container.style.width = "fit-content"
+        container.style.maxWidth = "100%"
+    }
 
     if (theme.hover){
       table.classList.add('hoverable')
@@ -54,14 +57,20 @@ export class Renderer {
     const tr = document.createElement("tr");
 
 
+    // normalize fields 
+    fields = fields.map(f =>
+      typeof f === "string"
+        ? { key: f, label: f , sortable : true}
+        : {...f , sortable : true }
+    );
     // create thead cells 
     fields.forEach(f => {
       const th = document.createElement("th");
 
-      const key = f.label.toLowerCase();    
+      const key = f.key;    
 
       const isSortable = key !== "actions" && key.trim() !== "" && pagination?.onSort
-      if (sortState?.enabled && isSortable) {
+      if (sortState?.enabled && isSortable && f.sortable) {
         th.style.cursor = "pointer";
 
         const sortKey = sortState?.key;
@@ -94,7 +103,7 @@ export class Renderer {
         th.appendChild(iconWrapper);
 
         th.addEventListener("click", () => {
-          pagination.onSort(f.label);
+          pagination.onSort(f.key);
         });
 
       } else {
@@ -103,28 +112,35 @@ export class Renderer {
 
       tr.appendChild(th);
     });
+
+    
+
+
+
+
     thead.appendChild(tr);
 
 
 
 
     
-    data.map(r => r).forEach((row, i) => {
+    data.forEach((row, i) => {
       const tr = document.createElement("tr");
 
       fields.forEach(f => {
         const td = document.createElement("td");
 
-        if (customFields[f.label]) {
-          const content = customFields[f.label](row, i);
+        if (customFields[f.key]) {
+          const content = customFields[f.key](row, i);
 
           if (content instanceof HTMLElement) {
             td.appendChild(content);
           } else {
             td.innerHTML = content;
           }
-        } else {
-          td.textContent = row[f.label.toLowerCase()] ?? "";
+        } 
+        else {
+          td.textContent = row[f.key] ?? "";
         }
 
         tr.appendChild(td);
